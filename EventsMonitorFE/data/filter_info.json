@@ -1,0 +1,25 @@
+[{
+	"id": 563,
+	"message": "User john logged in successfully",
+	"type": "INFO",
+	"ipaddress": "10.1.11.110",
+	"timestamp": 1546521977469
+}, {
+	"id": 569,
+	"message": "new module added successfully",
+	"type": "INFO",
+	"ipaddress": "10.12.44.11",
+	"timestamp": 1546521977481
+}, {
+	"id": 573,
+	"message": "User john logged in successfully",
+	"type": "INFO",
+	"ipaddress": "10.1.11.110",
+	"timestamp": 1546521982513
+}, {
+	"id": 579,
+	"message": "new module added successfully",
+	"type": "INFO",
+	"ipaddress": "10.12.44.11",
+	"timestamp": 1546521982524
+}]

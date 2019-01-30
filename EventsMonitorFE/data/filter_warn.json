@@ -1,0 +1,7 @@
+[{
+	"id": 561,
+	"message": "Too many connections open to DB",
+	"type": "WARNING",
+	"ipaddress": "10.12.12.11",
+	"timestamp": 1546521977434
+}]
