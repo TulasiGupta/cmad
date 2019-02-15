@@ -1,0 +1,122 @@
+.rTable {
+    display: table;
+    width: 59%;
+    overflow-y: scroll;
+}
+
+.datarTable {
+    display: table;
+    width: 100%;
+}
+.rTableRow {
+    display: table-row;
+    overflow-y: scroll
+}
+.rTableHeading {
+    display: table-header-group;
+    background-color: #FF0000;
+    word-break: break-word;
+    width: 10%;
+}
+.rTableCell {
+    display: table-cell;
+    padding: 3px 10px;
+    border: 1px solid #999999;
+    word-break: break-word;
+    width: 10%;
+}
+
+.rTableHead {
+    display: table-cell;
+    padding: 3px 10px;
+    border: 1px solid #999999;
+    background: grey;
+    width: 10%;
+}
+
+.rTableHeading {
+    display: table-header-group;
+    background-color: #ddd;
+    font-weight: bold;
+}
+.rTableFoot {
+    display: table-footer-group;
+    font-weight: bold;
+    background-color: #ddd;
+}
+.rTableBody {
+    display: table-row-group;
+}
+
+.tableHolder
+ {
+ width: 59%;
+ height: 250px;
+ overflow-y: scroll;
+ overflow-x: hidden;
+}
+
+.scroll
+{
+width:50%;
+height:100px;
+overflow:scroll;
+float: left;
+}
+
+tbody tr:nth-child(odd){
+    background-color: #CCCCCC;
+}
+
+tbody tr:nth-child(even){
+    background-color: #FFFFFF;
+}
+
+.sort-by-asc
+{
+    left: 3px;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    margin: 4px 4px 0 3px;
+    background: transparent;
+    border-bottom: solid 7px #000;
+    border-top-width: 0;
+}
+
+.sort-by-desc
+{
+    left: 3px;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    margin: 4px 4px 0 3px;
+    background: transparent;
+    border-top: solid 7px #000;
+    border-bottom-width: 0;
+}
+
+.no-sort-by
+{
+    left: 3px;
+    display: none;
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    margin: 4px 4px 0 3px;
+    background: transparent;
+    border-top: solid 7px #000;
+    border-bottom-width: 0;
+}
+
+.submitbutton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 10px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 6%;
+}

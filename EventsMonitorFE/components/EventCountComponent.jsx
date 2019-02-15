@@ -11,11 +11,10 @@ class EventCountComponent extends React.Component{
         store.subscribe(()=>{
             this.forceUpdate();
         });
-        fetchEventsCount();    
     }
 
-    updateCount() {
-        this.state.error = store.getState().eventsCount.ERROR
+    componentDidMount() {
+        fetchEventsCount();
     }
 
     render() {
@@ -23,9 +22,9 @@ class EventCountComponent extends React.Component{
         return (
             <div>
                 <p>
-                    <img src="../imagefiles/info.png" width="18px"/>&nbsp; {store.getState().infoCount} &nbsp;&nbsp;
-                    <img src="../imagefiles/warning.png" width="18px"/>&nbsp; {store.getState().warnCount} &nbsp;&nbsp;
-                    <img src="../imagefiles/error.png" width="18px"/>&nbsp; {store.getState().errorCount} &nbsp;&nbsp;
+                    <img src="/event/v1/imagefiles/info.png" width="18px"/>&nbsp; {store.getState().infoCount} &nbsp;&nbsp;
+                    <img src="/event/v1/imagefiles/warning.png" width="18px"/>&nbsp; {store.getState().warnCount} &nbsp;&nbsp;
+                    <img src="/event/v1/imagefiles/error.png" width="18px"/>&nbsp; {store.getState().errorCount} &nbsp;&nbsp;
                 </p>
             </div>
         );
