@@ -3,24 +3,28 @@
  */
 package com.cisco.cmad.event.dao;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
+
+import org.springframework.stereotype.Component;
 
 /**
- * @author sakahuja
  * @author tcheedel
+ *
  */
-@Entity
-@Table(name = "syslogevents")
-public class Event {
-
-    @Id
-    private int id;
+@Component
+//@Scope(value="prototype", proxyMode=ScopedProxyMode.TARGET_CLASS)
+//@JsonAutoDetect(fieldVisibility = Visibility.ANY)
+public class JsonEvent implements Serializable {
+    
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6265057141683354236L;
+    public int id;
     private String message;
     private String type;
     private String ipaddress;
-    private long timestamp;
+    private String timestamp;
 
     public int getId() {
         return id;
@@ -54,18 +58,12 @@ public class Event {
         this.ipaddress = ipaddress;
     }
 
-    public long getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
-    }
-
-    @Override
-    public String toString() {
-        return "Event [id=" + id + ", message=" + message + ", type=" + type + ", ipaddress=" + ipaddress
-                + ", timestamp=" + timestamp + "]";
     }
 
 }

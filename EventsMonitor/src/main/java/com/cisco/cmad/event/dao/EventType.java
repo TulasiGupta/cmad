@@ -1,5 +1,9 @@
 package com.cisco.cmad.event.dao;
 
+/**
+ * @author tcheedel
+ *
+ */
 public class EventType {
 	
 	Event event;

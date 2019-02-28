@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
-@SpringBootTest
+//@SpringBootTest
 public class EventsApplicationTest {
 
 	@Test
