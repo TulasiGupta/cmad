@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -19,9 +21,21 @@ import com.cisco.cmad.event.mongo.dao.IPAddresses;
 import com.cisco.cmad.event.mongo.dao.Users;
 import com.cisco.cmad.event.repositories.IPAddressRepository;
 import com.cisco.cmad.event.repositories.UserRepository;
+import com.mongodb.async.SingleResultCallback;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Component
 public class UserService {
+
+    CountDownLatch latch = new CountDownLatch(1);
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     UserRepository userRepository;
@@ -37,10 +51,18 @@ public class UserService {
      */
     public void createAdminUser() {
 
+        SingleResultCallback<Void> callbackWhenFinished = new SingleResultCallback<Void>() {
+            @Override
+            public void onResult(final Void result, final Throwable t) {
+                System.out.println("Operation Finished!");
+                latch.countDown();
+            }
+        };
+
         Users user = new Users();
         user.setId("1");
         user.setName("admin");
-        user.setPassword("admin");
+        user.setPassword(bCryptPasswordEncoder.encode("admin"));
 
         ExampleMatcher em = ExampleMatcher.matching().withIgnoreCase();
         Example<Users> example = Example.of(user, em);
@@ -52,6 +74,11 @@ public class UserService {
             userRepository.save(user);
             System.out.println("admin user created");
         }
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -60,8 +87,6 @@ public class UserService {
      */
     public void createUser(String userName, String password) {
 
-        System.out.println(findUser(userName));
-        
         if (findUser(userName)) {
             String msg = "User '" + userName + "' already created";
             CMADLogger.logInfo(this.getClass().getName(), msg);
@@ -71,38 +96,38 @@ public class UserService {
             Users user = new Users();
             user.setId(String.valueOf(++totalUsers));
             user.setName(userName);
-            user.setPassword(password);
+            user.setPassword(bCryptPasswordEncoder.encode(password));
             CMADLogger.logInfo(this.getClass().getName(), "Creating user " + userName + " with id " + user.getId());
             userRepository.save(user);
         }
     }
-    
+
     public boolean removeUser(String userName) {
-        
+
         boolean deleteStatus = true;
-        
-        if(userName.equals("admin")) {
+
+        if (userName.equals("admin")) {
             String msg = "Unable to remove admin user";
             CMADLogger.logInfo(this.getClass().getName(), msg);
-            throw new AdminUserException(msg); 
-        }else if(!findUser(userName)) {
+            throw new AdminUserException(msg);
+        } else if (!findUser(userName)) {
             String msg = "User '" + userName + "' not found";
             CMADLogger.logInfo(this.getClass().getName(), msg);
             throw new UserException(msg);
         } else {
             List<Users> users = userRepository.findUserByName(userName);
-            if(users != null && users.size() > 0) {
+            if (users != null && users.size() > 0) {
                 userRepository.delete(users.get(0));
             } else {
                 CMADLogger.logInfo(this.getClass().getName(), "User '" + userName + "' not found");
                 deleteStatus = false;
             }
         }
-        
+
         return deleteStatus;
-        
+
     }
-    
+
     /**
      * @param userName
      * @return true if user already exists
@@ -111,7 +136,7 @@ public class UserService {
         List<Users> users = userRepository.findUserByName(userName);
         return (users.size() == 0) ? false : true;
     }
-    
+
     public boolean findUser(String userName, String password) {
         List<Users> users = userRepository.findUserForLogin(userName, password);
         return (users.size() == 0) ? false : true;
@@ -136,6 +161,14 @@ public class UserService {
      * properties file at the time of startup
      */
     public void checkAndUpdateIPAddresses() {
+
+        SingleResultCallback<Void> callbackWhenFinished = new SingleResultCallback<Void>() {
+            @Override
+            public void onResult(final Void result, final Throwable t) {
+                System.out.println("Operation Finished!");
+                latch.countDown();
+            }
+        };
 
         List<IPAddresses> ipAddressesFromDB = ipAddressRepository.findAll();
         String ipAddressesFromPropertyFile = environment.getProperty("ipAddresses");
@@ -168,6 +201,12 @@ public class UserService {
 
         if (ipAddressesToSave.size() > 0)
             ipAddressRepository.saveAll(ipAddressesToSave);
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 

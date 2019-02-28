@@ -2,8 +2,6 @@ package com.cisco.cmad.event.controller;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,7 +27,7 @@ public class UsersController {
     UserService usersService;
 
     @RequestMapping(value = "/user", method = {
-            RequestMethod.POST }, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+            RequestMethod.POST })
 
     public ResponseEntity<EventResponse> createUser(@RequestBody Map<String, Object> body) {
         String userName = (String) body.get("userName");
@@ -44,16 +42,16 @@ public class UsersController {
         return ResponseEntity.status(HttpStatus.OK).body(er);
 
     }
-    
+
     @RequestMapping(value = "/login", method = {
-            RequestMethod.POST }, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+            RequestMethod.POST })
 
     public ResponseEntity<EventResponse> loginUser(@RequestBody Map<String, Object> body) {
         String userName = (String) body.get("userName");
         String password = (String) body.get("password");
-        
+        System.out.println("in loginuser....");
         EventResponse er = new EventResponse();
-        if(usersService.findUser(userName, password)) {
+        if (usersService.findUser(userName, password)) {
             er.setStatus("True");
         } else {
             er.setStatus("False");
