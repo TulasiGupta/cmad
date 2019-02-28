@@ -15,7 +15,9 @@ function reducer(state={events:[],
                         defaultValueForPlaceHolder: "Type text to search",
                         styleDisplayTools: "none",
                         styleDisplayAdminPage: "block",
-                        isLoginSuccess: false}, action) {
+                        isLoginSuccess: false,
+                        loggedInUser: "NA",
+                        jwtToken: ""}, action) {
     console.log("actiontype ", action)
     switch(action.type){
         case 'onDemanRefresh':
@@ -45,7 +47,9 @@ function reducer(state={events:[],
                 defaultValueForPlaceHolder: state.defaultValueForPlaceHolder,
                 styleDisplayTools: displaytools,
                 styleDisplayAdminPage: displayadmin,
-                isLoginSuccess: islogin
+                isLoginSuccess: islogin,
+                loggedInUser: state.loggedInUser,
+                jwtToken: state.jwtToken
             }) 
         case 'loadEvents': 
             var islogin = false
@@ -75,7 +79,9 @@ function reducer(state={events:[],
                 defaultValueForPlaceHolder: state.defaultValueForPlaceHolder,
                 styleDisplayTools: displaytools,
                 styleDisplayAdminPage: displayadmin,
-                isLoginSuccess: islogin
+                isLoginSuccess: islogin,
+                loggedInUser: state.loggedInUser,
+                jwtToken: state.jwtToken
             })            
         case 'fetchEventsCount':
             var islogin = false
@@ -108,7 +114,9 @@ function reducer(state={events:[],
                 defaultValueForPlaceHolder: state.defaultValueForPlaceHolder,
                 styleDisplayTools: displaytools,
                 styleDisplayAdminPage: displayadmin,
-                isLoginSuccess: islogin
+                isLoginSuccess: islogin,
+                loggedInUser: state.loggedInUser,
+                jwtToken: state.jwtToken
             })
         case 'handleSort':            
             return({
@@ -127,7 +135,9 @@ function reducer(state={events:[],
                 defaultValueForPlaceHolder: state.defaultValueForPlaceHolder,
                 styleDisplayTools: state.styleDisplayTools,
                 styleDisplayAdminPage: state.styleDisplayAdminPage,
-                isLoginSuccess: state.isLoginSuccess
+                isLoginSuccess: state.isLoginSuccess,
+                loggedInUser: state.loggedInUser,
+                jwtToken: state.jwtToken
             })
         case 'incrementPage':
             var islogin = false
@@ -154,7 +164,9 @@ function reducer(state={events:[],
                 defaultValueForPlaceHolder: state.defaultValueForPlaceHolder,
                 styleDisplayTools: displaytools,
                 styleDisplayAdminPage: displayadmin,
-                isLoginSuccess: islogin
+                isLoginSuccess: islogin,
+                loggedInUser: state.loggedInUser,
+                jwtToken: state.jwtToken
             })
         case 'updateTimeInterval':
             
@@ -174,7 +186,9 @@ function reducer(state={events:[],
                 defaultValueForPlaceHolder: state.defaultValueForPlaceHolder,
                 styleDisplayTools: state.styleDisplayTools,
                 styleDisplayAdminPage: state.styleDisplayAdminPage,
-                isLoginSuccess: state.isLoginSuccess
+                isLoginSuccess: state.isLoginSuccess,
+                loggedInUser: state.loggedInUser,
+                jwtToken: state.jwtToken
             })
         case 'filter':            
             return({
@@ -193,7 +207,9 @@ function reducer(state={events:[],
                 defaultValueForPlaceHolder: action.defaultValueForPlaceHolder,
                 styleDisplayTools: state.styleDisplayTools,
                 styleDisplayAdminPage: state.styleDisplayAdminPage,
-                isLoginSuccess: state.isLoginSuccess
+                isLoginSuccess: state.isLoginSuccess,
+                loggedInUser: state.loggedInUser,
+                jwtToken: state.jwtToken
             })
         case 'styleAdminPage':
             var islogin = false
@@ -220,7 +236,9 @@ function reducer(state={events:[],
                 defaultValueForPlaceHolder: state.defaultValueForPlaceHolder,
                 styleDisplayTools: displaytools,
                 styleDisplayAdminPage: displayadmin,
-                isLoginSuccess: action.isLoginSuccess
+                isLoginSuccess: action.isLoginSuccess,
+                loggedInUser: action.loggedInUser,
+                jwtToken: action.jwtToken
             })
         case 'reset':            
             return({
@@ -239,7 +257,9 @@ function reducer(state={events:[],
                 defaultValueForPlaceHolder: "Type text to search",
                 styleDisplayTools: "none",
                 styleDisplayAdminPage: "block",
-                isLoginSuccess: false
+                isLoginSuccess: false,
+                loggedInUser: "NA",
+                jwtToken: ""
             })
         default:
             return state;

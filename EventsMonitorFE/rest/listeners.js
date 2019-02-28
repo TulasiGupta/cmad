@@ -14,8 +14,13 @@ function infiniteScrollListener() {
     if(store.getState().sortBy == "desc") {
         isSortByASC = false;
     }
-    var url = "http://localhost:8088/event/v1/events?sort="+store.getState().sortColumn+"&desc="+isSortByASC+"&page="+store.getState().page+"&limit="+store.getState().limit+"&filter="+store.getState().filterValue
-    fetch(url).then(response => response.json()).then(events => {
+    //var url = "http://localhost:8088/event/v1/events?sort="+store.getState().sortColumn+"&desc="+isSortByASC+"&page="+store.getState().page+"&limit="+store.getState().limit+"&filter="+store.getState().filterValue
+    var url = "https://localhost:8443/event/v1/events?sort="+store.getState().sortColumn+"&desc="+isSortByASC+"&page="+store.getState().page+"&limit="+store.getState().limit+"&filter="+store.getState().filterValue
+    fetch(url, {
+        headers: new Headers({
+            "Authorization": store.getState().jwtToken
+        })
+    }).then(response => response.json()).then(events => {
 
         var stopInc = false
 
@@ -56,8 +61,13 @@ function onDemandRefresh() {
         sortClm = "id"
     }
     //var url = '../data/events1.json?sort='+store.getState().sortColumn+',desc='+store.getState().sortByDesc+'&page='+store.getState().page+'&limit='+store.getState().limit
-    var url = "http://localhost:8088/event/v1/events?sort="+sortClm+"&desc="+isSortByASC+"&page=0&limit="+noOfRows+"&filter="+store.getState().filterValue
-    return fetch(url).then(response => response.json()).then(events => {
+    //var url = "http://localhost:8088/event/v1/events?sort="+sortClm+"&desc="+isSortByASC+"&page=0&limit="+noOfRows+"&filter="+store.getState().filterValue
+    var url = "https://localhost:8443/event/v1/events?sort="+sortClm+"&desc="+isSortByASC+"&page=0&limit="+noOfRows+"&filter="+store.getState().filterValue
+    return fetch(url, {
+        headers: new Headers({
+            "Authorization": store.getState().jwtToken
+        })
+    }).then(response => response.json()).then(events => {
         store.dispatch({
             type: 'onDemanRefresh',
             events: events,

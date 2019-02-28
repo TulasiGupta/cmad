@@ -84,7 +84,7 @@ class EventsComponent extends React.Component {
         </div>
         <div style={{padding:"5%", algin:"center", position:"fixed"}} key="mainDivTable">
           <div style={{textAlign: "center", paddingBottom: "2%", display: store.getState().styleDisplayTools}}>
-            <span>Logged in as </span><span style={{fontWeight: "bold"}}>admin</span>
+            <span>Logged in as </span><span style={{fontWeight: "bold"}}>{store.getState().loggedInUser}</span>
             <button name="logoutBtn" className="btn-link" ref="logoutBtn" onClick={this.onLogout}>Logout</button>
           </div>
           <div>

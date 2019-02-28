@@ -4,7 +4,11 @@ function fetchEvents() {
     console.log("in fetch events..");
     var url = '../data/events1.json?sort='+store.getState().sortColumn+',desc='+store.getState().sortByDesc+'&page='+store.getState().page+'&limit='+store.getState().limit
     //var url = '/event/v1/events?sort='+store.getState().sortColumn+'&desc='+store.getState().sortByDesc+'&page='+store.getState().page+'&limit='+store.getState().defaultlimit
-    return fetch(url).then(response => response.json()).then(jsonobj => {
+    return fetch(url, {
+        headers: new Headers({
+            "Authorization": store.getState().jwtToken
+        })
+    }).then(response => response.json()).then(jsonobj => {
         var events = jsonobj.events
         var totalSize = jsonobj.totalPageSize
         var f = store.getState().events
@@ -58,9 +62,14 @@ function fetchEventsCount() {
     }
     console.log("in fetchEventsCount")
     //var url = '../data/eventscount.json'
-    var url = 'http://localhost:8088/event/v1/countbytype'
+    //var url = 'http://localhost:8088/event/v1/countbytype'
+    var url = 'https://localhost:8443/event/v1/countbytype'
     //var url = '/event/v1/countbytype'
-    return fetch(url).then(response => response.json()).then(eventsCnt => {
+    return fetch(url,{
+        headers: new Headers({
+            "Authorization": store.getState().jwtToken
+        })
+    }).then(response => response.json()).then(eventsCnt => {
         console.log(eventsCnt)
         console.log(eventsCnt[0].ERROR)
         store.dispatch({
