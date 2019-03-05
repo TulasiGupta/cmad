@@ -15,7 +15,7 @@ services:
   eventmonitor1:
     build: ./eventmonitor1
     ports:
-      - 30003:8080
+      - 30003:8443
     depends_on:
       - mysql8013
     networks:

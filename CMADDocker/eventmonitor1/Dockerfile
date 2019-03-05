@@ -6,7 +6,7 @@ COPY . .
 
 RUN mvn package 
 
-EXPOSE 8080
+EXPOSE 8443
 
 CMD  java -jar target/EventsMonitor*jar
 
